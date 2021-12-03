@@ -15,10 +15,10 @@ private:
 	int type;
 
 	//Private functions
-	virtual void initShape(const RenderWindow& window);
+	virtual void initShape(const RenderWindow* window);
 public:
 	//Constructors and Destructors
-	SwagBall(const RenderWindow& window, int type);
+	SwagBall(const RenderWindow* window, int type);
 	virtual ~SwagBall();
 	
 	//Accessors
@@ -27,7 +27,7 @@ public:
 
 
 	//Functions
-	virtual void render(RenderTarget& target);
+	virtual void render(RenderTarget* target);
 };
 
  

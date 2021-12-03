@@ -165,7 +165,7 @@ void Game::spawnSwagBalls() {
 		
 			if (tempType == SwagBallsTypes::DAMAGING) {
 				if (this->amountDamaging < this->maxAmountDamaging) {
-					this->swagBalls.push_back(new SwagBall(*this->window, tempType));
+					this->swagBalls.push_back(new SwagBall(this->window, tempType));
 					this->amountDamaging++;
 				}
 				else {
@@ -174,7 +174,7 @@ void Game::spawnSwagBalls() {
 			}
 			else if (tempType == SwagBallsTypes::HEALING) {
 				if (this->amountHealling < this->maxAmountHealling) {
-					this->swagBalls.push_back(new SwagBall(*this->window, tempType));
+					this->swagBalls.push_back(new SwagBall(this->window, tempType));
 					this->amountHealling++;
 				}
 				else {
@@ -182,7 +182,7 @@ void Game::spawnSwagBalls() {
 				}
 			}
 			else if(tempType == SwagBallsTypes::DEFAULT){
-				this->swagBalls.push_back(new SwagBall(*this->window, tempType));
+				this->swagBalls.push_back(new SwagBall(this->window, tempType));
 			}
 			this->spawnTimer = 0.f;
 		}
@@ -340,7 +340,7 @@ void Game::render() {
 	
 	//Render each swagBall
 	for (auto i : this->swagBalls) {
-		i->render(*this->window);
+		i->render(this->window);
 	}
 
 	//Render text

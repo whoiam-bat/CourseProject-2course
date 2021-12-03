@@ -1,7 +1,7 @@
 #include "SwagBall.h"
 
 //Private functions
-void SwagBall::initShape(const RenderWindow& window) {
+void SwagBall::initShape(const RenderWindow* window) {
 	switch (this->type) {
 	case SwagBallsTypes::DEFAULT: {
 		this->defaultTexture.loadFromFile("images/coin.png");
@@ -26,22 +26,22 @@ void SwagBall::initShape(const RenderWindow& window) {
 	}
 	}
 	float xCoord = static_cast<float>(
-		rand() % window.getSize().x - this->shape.getGlobalBounds().width
+		rand() % window->getSize().x - this->shape.getGlobalBounds().width
 		);
 	float yCoord = static_cast<float>(
-		rand() % window.getSize().y - this->shape.getGlobalBounds().height
+		rand() % window->getSize().y - this->shape.getGlobalBounds().height
 		);
 	//Check out wether coordinates spawn enemy is in window
 	//Check top and bottom bounds
-	if(yCoord <= 0 | yCoord >= window.getSize().y) {
+	if(yCoord <= 0 | yCoord >= window->getSize().y) {
 		yCoord = static_cast<float>(
-			rand() % window.getSize().y - this->shape.getGlobalBounds().height
+			rand() % window->getSize().y - this->shape.getGlobalBounds().height
 			);
 	}
 	//Check right and left bounds
-	if (xCoord <= 0 | xCoord >= window.getSize().x) {
+	if (xCoord <= 0 | xCoord >= window->getSize().x) {
 		xCoord = static_cast<float>(
-			rand() % window.getSize().x - this->shape.getGlobalBounds().width
+			rand() % window->getSize().x - this->shape.getGlobalBounds().width
 			);
 	}
 	Vector2f position(xCoord, yCoord);
@@ -49,7 +49,7 @@ void SwagBall::initShape(const RenderWindow& window) {
 }
 
 //Constructors and Destructors
-SwagBall::SwagBall(const RenderWindow& window, int type) : type(type) {
+SwagBall::SwagBall(const RenderWindow* window, int type) : type(type) {
 	this->initShape(window);
 
 }
@@ -66,6 +66,6 @@ const int& SwagBall::getType() const {
 }
 
 //Functions
-void SwagBall::render(RenderTarget& target) {
-	target.draw(this->shape);
+void SwagBall::render(RenderTarget* target) {
+	target->draw(this->shape);
 }
