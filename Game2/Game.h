@@ -52,6 +52,27 @@ private:
 	//For ending game
 	bool endGame;
 
+	bool isBeatRecord;
+
+	//Sounds
+	SoundBuffer restartBuffer;
+	Sound restartSound;
+
+	SoundBuffer healBuffer;
+	Sound healSound;
+
+	SoundBuffer damagBuffer;
+	Sound damagSound;
+
+	SoundBuffer coinBuffer;
+	Sound coinSound;
+
+	SoundBuffer deathBuffer;
+	Sound deathSound;
+
+	SoundBuffer recordBuffer;
+	Sound recordSound;
+
 	//Private functions
 	void initSprite();
 	void initTexture();
@@ -59,6 +80,9 @@ private:
 	void initGUI();
 	void initVariables();
 	void initWindow();
+
+	void initSounds();
+
 public:
 	//Constructors and Destructors
 	Game();

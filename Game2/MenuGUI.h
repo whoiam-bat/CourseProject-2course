@@ -1,6 +1,8 @@
 #pragma once
 #include "libraries.h"
 #include "Game.h"
+#include "SFML/Audio/Sound.hpp"
+#include "SFML/Audio.hpp"
 
 class MenuGUI {
 private:
@@ -14,6 +16,7 @@ private:
 	bool isClickOnPlay;
 	bool isClickOnExit;
 
+	//Animation
 	Texture backgroundTexture;
 	Texture playButtonTexture;
 	Texture exitButtonTexture;
@@ -22,11 +25,20 @@ private:
 	Sprite playButton;
 	Sprite exitButton;
 
+	//Sounds and music
+	SoundBuffer clickBuffer;
+	Sound clickSound;
+	Music backgroundSound;
+
+
+
 	//Private functions
 	void initWindow();
 	void initTextures();
 	void initSprites();
 	void initVariables();
+	void initSounds();
+
 public:
 	//Constructors and destructors
 	MenuGUI();
@@ -39,6 +51,8 @@ public:
 	void runMenu();
 
 	void pollEvents();
+
+	void playSoundMenu();
 
 	void updateUserCollisionWithButtons();
 

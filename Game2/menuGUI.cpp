@@ -2,7 +2,7 @@
 
 void MenuGUI::initWindow() {
 	this->videoMode = VideoMode(1024, 720);
-	this->window = new RenderWindow(this->videoMode, "Game 2", Style::Close | Style::Titlebar);
+	this->window = new RenderWindow(this->videoMode, "How to name the game?", Style::Close | Style::Titlebar);
 
 	//Defines how fast will move objects in the window
 	this->window->setFramerateLimit(144);
@@ -41,12 +41,25 @@ void MenuGUI::initVariables() {
 	this->isMenuRuns = true;
 }
 
+void MenuGUI::initSounds() {
+	if (!this->clickBuffer.loadFromFile("melodies/button_click.ogg")) {
+		cout << " ! ERROR::GAME::INITSOUNDS::COULD NOT LOAD SOUND\n";
+	}
+	if (!this->backgroundSound.openFromFile("melodies/menu.wav")) {
+		cout << " ! ERROR::GAME::INITSOUNDS::COULD NOT LOAD MUSIC\n";
+	}
+	this->backgroundSound.setVolume(30.f);
+	this->clickSound.setBuffer(this->clickBuffer);
+	this->clickSound.setVolume(20.f);
+}
+
 //Constructors and destructors
 MenuGUI::MenuGUI() {
 	this->initWindow();
 	this->initTextures();
 	this->initSprites();
 	this->initVariables();
+	this->initSounds();
 }
 MenuGUI::~MenuGUI() {
 	delete this->window;
@@ -59,18 +72,20 @@ const bool& MenuGUI::running() const {
 
 //Functions
 void MenuGUI::runMenu() {
-
+	this->backgroundSound.play();
 	while (this->running()) {
+
 		if (this->isClickOnPlay == true) {
+			this->clickSound.play();
+			this->backgroundSound.pause();
 			Game game;
 			this->window->close();
 			game.runGame();
 		}
-		else if (this->isClickOnExit == true) {
+		if (this->isClickOnExit == true) {
 			this->window->close();
 		}
 		else {
-			this->pollEvents();
 			this->update();
 			this->render();
 		}
@@ -94,6 +109,7 @@ void MenuGUI::pollEvents() {
 		}
 	}
 }
+
 
 void MenuGUI::updateMousePosition() {
 	/***
@@ -120,6 +136,7 @@ void MenuGUI::update() {
 	this->updateMousePosition();
 	this->updateUserCollisionWithButtons();
 }
+
 
 void MenuGUI::renderGUI() {
 	this->window->draw(this->playButton);

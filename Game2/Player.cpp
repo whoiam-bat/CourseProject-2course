@@ -10,7 +10,6 @@ void Player::initVariables() {
 	this->movementSpeed = 1.5f;
 	this->healPointMax = 10;
 	this->healPoint = this->healPointMax;
-
 	this->animState = PLAYER_ANIMATION_STATES::IDLE;
 }
 void Player::initSprite() {
@@ -106,7 +105,7 @@ void Player::updateMovement() {
 		this->animState = PLAYER_ANIMATION_STATES::MOVING_RIGHT;
 	}
 	//Upwards movement
-	if (Keyboard::isKeyPressed(Keyboard::W) || Keyboard::isKeyPressed(Keyboard::Up)) {
+	else if (Keyboard::isKeyPressed(Keyboard::W) || Keyboard::isKeyPressed(Keyboard::Up)) {
 		this->shape.move(0.f, -this->movementSpeed);
 		this->animState = PLAYER_ANIMATION_STATES::MOVING_UPWARDS;
 	}
@@ -116,6 +115,7 @@ void Player::updateMovement() {
 		this->animState = PLAYER_ANIMATION_STATES::MOVING_DOWNWARDS;
 	}
 }
+
 void Player::updateAnimation() {
 	if (this->healPoint <= 0) {
 		this->currentFrame.top = 342;
@@ -182,3 +182,7 @@ void Player::update(const RenderTarget* target) {
 void Player::render(RenderTarget* target) {
 	target->draw(this->shape);
 }
+
+
+
+

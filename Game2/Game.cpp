@@ -74,6 +74,8 @@ void Game::initVariables() {
 	this->path = "Score.txt";
 	this->setScore();
 
+	this->isBeatRecord = true;
+
 	this->maxAmountDamaging = 4;
 	this->maxAmountHealling = 3;
 	this->amountDamaging = 0;
@@ -82,11 +84,50 @@ void Game::initVariables() {
 }
 void Game::initWindow()  {
 	this->videoMode = VideoMode(1024, 720);
-	this->window = new RenderWindow(this->videoMode, "Game 2", Style::Close | Style::Titlebar);
+	this->window = new RenderWindow(this->videoMode, "How to name the game?", Style::Close | Style::Titlebar);
 
 	//Defines how fast will move objects in the window
 	this->window->setFramerateLimit(144);
 	this->window->setVerticalSyncEnabled(false);
+}
+
+void Game::initSounds() {
+	if (!this->healBuffer.loadFromFile("melodies/healing.wav")) {
+		cout << " ! ERROR::GAME::INITSOUNDS::COULD NOT LOAD HELING SOUND\n";
+	}
+	if (!this->damagBuffer.loadFromFile("melodies/damage.flac")) {
+		cout << " ! ERROR::GAME::INITSOUNDS::COULD NOT LOAD DAMAGE SOUND\n";
+	}
+	if (!this->coinBuffer.loadFromFile("melodies/coins.flac")) {
+		cout << " ! ERROR::GAME::INITSOUNDS::COULD NOT LOAD COINS SOUND\n";
+	}
+	if (!this->deathBuffer.loadFromFile("melodies/death.wav")) {
+		cout << " ! ERROR::GAME::INITSOUNDS::COULD NOT LOAD DEATH SOUND\n";
+	}
+	if (!this->restartBuffer.loadFromFile("melodies/button_click.ogg")) {
+		cout << " ! ERROR::GAME::INITSOUNDS::COULD NOT LOAD BUTTON CLICK SOUND\n";
+	}
+	if (!this->recordBuffer.loadFromFile("melodies/newRecord.wav")) {
+		cout << " ! ERROR::GAME::INITSOUNDS::COULD NOT LOAD RECORD SOUND\n";
+	}
+
+	this->healSound.setBuffer(this->healBuffer);
+	this->healSound.setVolume(50.f);
+
+	this->damagSound.setBuffer(this->damagBuffer);
+	this->damagSound.setVolume(50.f);
+
+	this->coinSound.setBuffer(this->coinBuffer);
+	this->coinSound.setVolume(50.f);
+
+	this->deathSound.setBuffer(this->deathBuffer);
+	this->deathSound.setVolume(50.f);
+
+	this->restartSound.setBuffer(this->restartBuffer);
+	this->restartSound.setVolume(20.f);
+
+	this->recordSound.setBuffer(this->recordBuffer);
+	this->recordSound.setVolume(70.f);
 }
 
 //Constructors and Destructors
@@ -97,6 +138,7 @@ Game::Game() {
 	this->initFonts();
 	this->initVariables();
 	this->initGUI();
+	this->initSounds();
 }
 Game::~Game() {
 	delete this->window;
@@ -111,6 +153,7 @@ void Game::runGame() {
 			this->updateUserCollisionWithButtons();
 
 			if (this->isClickOnRestart == true) {
+				this->restartSound.play();
 				this->window->close();
 				Game game;
 				game.runGame();
@@ -260,21 +303,28 @@ void Game::updateCollision()  {
 
 			switch (this->swagBalls[i]->getType()) {
 			case SwagBallsTypes::DEFAULT: {
+				this->coinSound.play();
 				if (this->points < this->rateScore) {
 					this->points++;
 				}
 				else {
+					if (this->isBeatRecord) {
+						this->recordSound.play();
+					}
+					this->isBeatRecord = false;
 					this->points++;
 					this->rateScore++;
 				}
 				break;
 			}
 			case SwagBallsTypes::DAMAGING: {
+				this->damagSound.play();
 				this->player.takeDamage(3);
 				this->amountDamaging--;
 				break;
 			}
 			case SwagBallsTypes::HEALING: {
+				this->healSound.play();
 				this->player.gainHealth(2);
 				this->amountHealling--;
 				break;
@@ -303,6 +353,7 @@ void Game::updatePlayer() {
 			cout << str;
 		}
 		this->endGame = true;
+		this->deathSound.play();
 	}
 }
 void Game::update() {

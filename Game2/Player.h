@@ -22,6 +22,7 @@ private:
 	int healPoint;
 	int healPointMax;
 
+
 	//Private functions
 
 	virtual void initTexture();
@@ -39,11 +40,11 @@ public:
 	virtual const int& getHPMax() const;
 
 	//Functions
+
 	virtual void takeDamage(const int damage);
 	virtual void gainHealth(const int health);
 
 	virtual void updateWindowBoundsCollision(const RenderTarget* target);
-
 
 	//Player's movements
 	virtual void updateAnimation();
