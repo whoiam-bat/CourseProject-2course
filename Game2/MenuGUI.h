@@ -30,8 +30,6 @@ private:
 	Sound clickSound;
 	Music backgroundSound;
 
-
-
 	//Private functions
 	void initWindow();
 	void initTextures();
@@ -49,19 +47,13 @@ public:
 
 	//Functions
 	void runMenu();
-
 	void pollEvents();
 
-	void playSoundMenu();
-
 	void updateUserCollisionWithButtons();
-
 	void updateMousePosition();
 	void update();
 
 	void renderGUI();
 	void render();
-
-
 };
 

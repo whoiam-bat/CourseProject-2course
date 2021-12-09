@@ -21,13 +21,11 @@ private:
 	Font gameOver;
 
 	Text guiText;
-
 	Text healthText;
 	Text endGameText;
 
 	Texture backgroundTexture;
 	Sprite background;
-
 	Texture restartTexture;
 	Sprite restartButton;
 
@@ -48,28 +46,21 @@ private:
 
 	//For restart button
 	bool isClickOnRestart;
-
 	//For ending game
 	bool endGame;
-
 	bool isBeatRecord;
 
 	//Sounds
 	SoundBuffer restartBuffer;
 	Sound restartSound;
-
 	SoundBuffer healBuffer;
 	Sound healSound;
-
 	SoundBuffer damagBuffer;
 	Sound damagSound;
-
 	SoundBuffer coinBuffer;
 	Sound coinSound;
-
 	SoundBuffer deathBuffer;
 	Sound deathSound;
-
 	SoundBuffer recordBuffer;
 	Sound recordSound;
 
@@ -80,7 +71,6 @@ private:
 	void initGUI();
 	void initVariables();
 	void initWindow();
-
 	void initSounds();
 
 public:
@@ -99,13 +89,10 @@ public:
 
 	void spawnSwagBalls();
 	const int randBallType();
-
 	void pollEvents();
 
 	void updateMousePosition();
-
 	void updateUserCollisionWithButtons();
-
 	void updateGUI();
 	void updateCollision();
 	void updatePlayer();
