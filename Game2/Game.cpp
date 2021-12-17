@@ -31,7 +31,7 @@ void Game::initGUI() {
 
 	//GUI text init
 	this->guiText.setFont(this->fontGUI);
-	this->guiText.setPosition(Vector2f(static_cast<float>(this->window->getSize().x - 330.f), 6.f));
+	this->guiText.setPosition(Vector2f(static_cast<float>(this->window->getSize().x - 340.f), 6.f));
 	this->guiText.setFillColor(Color::White);
 	this->guiText.setCharacterSize(26);
 
